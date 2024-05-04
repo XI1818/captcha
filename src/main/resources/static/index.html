@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>验证码测试</title>
+
+  <script src="js/jquery-1.11.1.min.js" type="text/javascript"></script>
+</head>
+<body>
+<div>
+  <form action="/verify" method="post">
+    <h4>验证码</h4>
+    <img src="" id="tp">
+    <label>
+      <input type="text" placeholder="请输入验证码" autocomplete="off" name="captchaCode">
+    </label>
+    <input type="hidden" id="token" name="token">
+    <input type="submit" value="提交">
+  </form>
+</div>
+
+<script>
+  $(function () {
+    function captcha() {
+      $.ajax({
+        type: 'get',
+        dataType: 'json',
+        url: '/createcaptcha',
+        xhrFields: {
+          withCredentials: true
+        },
+        success: function (data) {
+          debugger
+          if (data.reCode==='0000') {
+            var img = 'data:image/jpg;base64,' + data.repData.base64Image;
+            var token = data.repData.token;
+            $("#tp").attr("src", img);
+            $("#token").attr("value", token);
+          } else {
+            alert("error");
+          }
+        }
+      });
+    };
+    captcha();
+    $("#tp").click(captcha);
+  })
+
+</script>
+
+</body>
+</html>
