@@ -34,7 +34,7 @@ import java.util.Random;
 
 /**
  * @description 验证码文本生成类
- * @date 2020/8/20
+
  **/
 public class TextCreatorUtils {
     /**
